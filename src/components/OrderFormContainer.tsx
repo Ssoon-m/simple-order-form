@@ -18,7 +18,7 @@ const OrderFormContainer = () => {
           <PaymentPriceInfo />
           <PaymentMethod />
         </div>
-        <footer className="p-5 bg-white">
+        <footer className="p-5 bg-white border border-t border-gray-200">
           <button className="w-full bg-blue-500 text-white rounded-lg py-3 px-6 hover:bg-blue-400">
             18,000원 결제하기
           </button>
