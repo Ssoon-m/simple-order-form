@@ -1,10 +1,10 @@
-import OrderForm from "./components/OrderForm";
+import OrderFormContainer from "./components/OrderFormContainer";
 
 function App() {
   return (
-    <div className="w-full h-full flex justify-center bg-gray-300">
+    <div className="w-full h-full flex justify-center">
       <div className="w-full h-full flex flex-col max-w-lg">
-        <OrderForm />
+        <OrderFormContainer />
       </div>
     </div>
   );

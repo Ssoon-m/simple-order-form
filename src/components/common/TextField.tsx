@@ -70,14 +70,14 @@ const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(
 
     const iconClasses = cn(
       objectsToString(base.icon),
-      objectsToString(inputVariant.base.icon),
-      objectsToString(inputSize.icon)
+      objectsToString(inputVariant.base.icon)
     );
+    // objectsToString(inputSize.icon)
 
     return (
       <div>
         <label className={containerClasses}>
-          <div className={labelClasses}>{label}</div>
+          {!!label && <div className={labelClasses}>{label}</div>}
           <input ref={ref} className={inputClasses} {...props}></input>
           {icon && <div className={iconClasses}>{icon}</div>}
         </label>
@@ -175,7 +175,7 @@ const inputStyle = {
         maxWidth: "max-w-none",
       },
       icon: {
-        position: "absoulte",
+        position: "absolute",
       },
     },
     sizes: {
@@ -193,10 +193,10 @@ const inputStyle = {
           mb: "mb-1",
           textSize: "text-sm",
         },
-        icon: {
-          width: "w-5",
-          height: "h-5",
-        },
+        // icon: {
+        //   width: "w-5",
+        //   height: "h-5",
+        // },
       },
       large: {},
     },
