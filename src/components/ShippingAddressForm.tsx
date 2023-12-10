@@ -7,7 +7,7 @@ import { UseFormRegisterReturn } from "react-hook-form";
 interface Props {
   receiverName: UseFormRegisterReturn<"receiverName">;
   receiverPhone: UseFormRegisterReturn<"receiverPhone">;
-  address: string;
+  address: UseFormRegisterReturn<"address">;
   addressDetail: UseFormRegisterReturn<"addressDetail">;
   setAddress: (value: string) => void;
 }
@@ -49,7 +49,7 @@ const ShippingAddressForm = ({
             <div className="flex flex-col gap-2">
               <TextField
                 icon={<FaSearch />}
-                value={address}
+                {...address}
                 readOnly
                 placeholder="배송지를 검색해주세요."
                 onClick={handleOpenShippingModal}

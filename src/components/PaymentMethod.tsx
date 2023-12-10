@@ -1,10 +1,12 @@
+import { UseFormRegisterReturn } from "react-hook-form";
 import { PAYMENT_METHOD } from "../constants/payment";
 
 interface Props {
   setPaymentMethod: (value: string) => void;
+  paymentMethodtype: UseFormRegisterReturn<"paymentMethod">;
 }
 
-const PaymentMethod = ({ setPaymentMethod }: Props) => {
+const PaymentMethod = ({ setPaymentMethod, paymentMethodtype }: Props) => {
   return (
     <section className="bg-white px-4 pt-7 pb-8">
       <div className="pb-5">
@@ -14,6 +16,7 @@ const PaymentMethod = ({ setPaymentMethod }: Props) => {
         {PAYMENT_METHOD.map((method) => (
           <li className="w-full" key={method.id}>
             <input
+              {...paymentMethodtype}
               type="radio"
               id={method.id}
               onChange={(e) => setPaymentMethod(e.target.value)}

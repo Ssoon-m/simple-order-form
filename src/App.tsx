@@ -42,7 +42,6 @@ function App() {
     register,
     handleSubmit,
     setValue,
-    getValues,
     formState: { errors },
   } = useForm<OrderFormSchemaType>({
     resolver: zodResolver(OrderFormSchema),
@@ -84,12 +83,15 @@ function App() {
               <ShippingAddressForm
                 receiverName={register("receiverName")}
                 receiverPhone={register("receiverPhone")}
-                address={getValues("address")}
+                address={register("address")}
                 addressDetail={register("addressDetail")}
                 setAddress={setAddress}
               />
               <PaymentPriceInfo />
-              <PaymentMethod setPaymentMethod={setPaymentMethod} />
+              <PaymentMethod
+                paymentMethodtype={register("paymentMethod")}
+                setPaymentMethod={setPaymentMethod}
+              />
             </div>
             <footer className="p-5 bg-white border border-t border-gray-200">
               <button
