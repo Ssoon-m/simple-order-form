@@ -16,7 +16,7 @@ const ShippingAddressSearchModal = ({ isOpen, onClose }: Props) => {
     return () => document.body.classList.remove("overflow-hidden");
   }, [isOpen]);
 
-  const handleCloseModal = (e: React.MouseEvent<HTMLDivElement>) => {
+  const handleCloseModal = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
     onClose();
   };
@@ -48,9 +48,12 @@ const ShippingAddressSearchModal = ({ isOpen, onClose }: Props) => {
       >
         <div className="w-full h-full bg-white p-4">
           <div className="relative w-full flex justify-center">
-            <button className="absolute left-0 -top-1 p-2">
+            <button
+              className="absolute left-0 -top-1 p-2"
+              onClick={handleCloseModal}
+            >
               <span className="sr-only">취소</span>
-              <FaX size={20} onClick={handleCloseModal} />
+              <FaX size={20} />
             </button>
             <h1 className="text-xl font-bold">주소 검색</h1>
           </div>
