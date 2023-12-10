@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { cn } from "../utils";
 import { FaX } from "react-icons/fa6";
 import TextField from "./common/TextField";
@@ -6,9 +6,12 @@ import TextField from "./common/TextField";
 interface Props {
   isOpen: boolean;
   onClose: () => void;
+  setAddress: (value: string) => void;
 }
 
-const ShippingAddressSearchModal = ({ isOpen, onClose }: Props) => {
+const ShippingAddressSearchModal = ({ isOpen, onClose, setAddress }: Props) => {
+  const addressRef = useRef<HTMLInputElement>(null);
+
   useEffect(() => {
     if (isOpen && typeof window !== "undefined") {
       document.body.classList.add("overflow-hidden");
@@ -18,6 +21,11 @@ const ShippingAddressSearchModal = ({ isOpen, onClose }: Props) => {
 
   const handleCloseModal = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
+    onClose();
+  };
+
+  const handleSearchComplete = () => {
+    setAddress(addressRef.current?.value ?? "");
     onClose();
   };
   return (
@@ -59,8 +67,15 @@ const ShippingAddressSearchModal = ({ isOpen, onClose }: Props) => {
           </div>
           <div className="h-[24px]" />
           <div className="w-full flex gap-3">
-            <TextField className="flex-1" placeholder="주소 입력" />
-            <button className=" shrink-0 w-24 bg-blue-500 text-white rounded-lg py-2 px-6 hover:bg-blue-400">
+            <TextField
+              className="flex-1"
+              placeholder="주소 입력"
+              ref={addressRef}
+            />
+            <button
+              className=" shrink-0 w-24 bg-blue-500 text-white rounded-lg py-2 px-6 hover:bg-blue-400"
+              onClick={handleSearchComplete}
+            >
               완료
             </button>
           </div>
