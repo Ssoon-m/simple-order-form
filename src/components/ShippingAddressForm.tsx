@@ -1,9 +1,22 @@
+import { useState } from "react";
+import ShippingAddressSearchModal from "./ShippingAddressSearchModal";
 import TextField from "./common/TextField";
 import { FaSearch } from "react-icons/fa";
 
 const ShippingAddressForm = () => {
+  const [isOpenShippingModal, setIsOpenShippingModal] = useState(false);
+  const handleOpenShippingModal = () => {
+    setIsOpenShippingModal(true);
+  };
+  const handleCloseShippingModal = () => {
+    setIsOpenShippingModal(false);
+  };
   return (
     <section className="bg-white px-4 pt-7 pb-8">
+      <ShippingAddressSearchModal
+        isOpen={isOpenShippingModal}
+        onClose={handleCloseShippingModal}
+      />
       <div className="pb-5">
         <h2 className="text-xl font-bold">배송지 정보</h2>
       </div>
@@ -21,7 +34,7 @@ const ShippingAddressForm = () => {
               value={""}
               readOnly
               placeholder="배송지를 검색해주세요."
-              onClick={() => console.log("modal open!")}
+              onClick={handleOpenShippingModal}
             />
             <TextField placeholder="상세주소를 입력해주세요." />
           </div>

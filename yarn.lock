@@ -1667,6 +1667,11 @@ react-dom@^18.2.0:
     loose-envify "^1.1.0"
     scheduler "^0.23.0"
 
+react-hook-form@^7.49.0:
+  version "7.49.0"
+  resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-7.49.0.tgz#9a91edfba6b6983d4b443653a9b225a780a42b3e"
+  integrity sha512-gf4qyY4WiqK2hP/E45UUT6wt3Khl49pleEVcIzxhLBrD6m+GMWtLRk0vMrRv45D1ZH8PnpXFwRPv0Pewske2jw==
+
 react-icons@^4.12.0:
   version "4.12.0"
   resolved "https://registry.yarnpkg.com/react-icons/-/react-icons-4.12.0.tgz#54806159a966961bfd5cdb26e492f4dafd6a8d78"

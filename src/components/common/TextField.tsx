@@ -75,7 +75,7 @@ const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(
     // objectsToString(inputSize.icon)
 
     return (
-      <div>
+      <div className={fullWidth ? "w-full" : ""}>
         <label className={containerClasses}>
           {!!label && <div className={labelClasses}>{label}</div>}
           <input ref={ref} className={inputClasses} {...props}></input>
