@@ -58,6 +58,7 @@ const ShippingAddressSearchModal = ({ isOpen, onClose, setAddress }: Props) => {
           <div className="relative w-full flex justify-center">
             <button
               className="absolute left-0 -top-1 p-2"
+              type="button"
               onClick={handleCloseModal}
             >
               <span className="sr-only">취소</span>
