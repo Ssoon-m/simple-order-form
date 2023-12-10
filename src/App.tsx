@@ -6,7 +6,7 @@ import ShippingAddressForm from "./components/ShippingAddressForm";
 
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { SubmitErrorHandler, SubmitHandler, useForm } from "react-hook-form";
 import { PAYMENT_METHOD } from "./constants/payment";
 
 const OrderFormSchema = z.object({
@@ -29,7 +29,7 @@ const OrderFormSchema = z.object({
     .max(100, { message: "상세주소가 너무 깁니다." })
     .optional(),
   paymentMethod: z
-    .string()
+    .string({ invalid_type_error: "결제수단을 선택해주세요." })
     .refine((val) =>
       PAYMENT_METHOD.map((method) => method.value).includes(val)
     ),
@@ -60,7 +60,16 @@ function App() {
   };
 
   const onSubmitForm: SubmitHandler<OrderFormSchemaType> = (values) => {
-    console.log("data", values);
+    alert(JSON.stringify(values));
+  };
+
+  const onInvalid: SubmitErrorHandler<OrderFormSchemaType> = (forms) => {
+    for (const form of Object.values(forms)) {
+      if (form.message) {
+        alert(form.message);
+        return;
+      }
+    }
   };
 
   return (
@@ -71,7 +80,7 @@ function App() {
             <h1 className="text-xl font-bold text-center">결제하기</h1>
           </header>
           <form
-            onSubmit={handleSubmit(onSubmitForm)}
+            onSubmit={handleSubmit(onSubmitForm, onInvalid)}
             onKeyDown={(e) => checkKeyDown(e)}
           >
             <div className="flex flex-col gap-3">

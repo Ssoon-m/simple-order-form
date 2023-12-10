@@ -74,6 +74,7 @@ const ShippingAddressSearchModal = ({ isOpen, onClose, setAddress }: Props) => {
             />
             <button
               className=" shrink-0 w-24 bg-blue-500 text-white rounded-lg py-2 px-6 hover:bg-blue-400"
+              type="button"
               onClick={handleSearchComplete}
             >
               완료
