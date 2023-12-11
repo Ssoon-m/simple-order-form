@@ -1,11 +1,9 @@
+import { useFormContext } from "react-hook-form";
 import TextField from "./common/TextField";
-import { UseFormRegisterReturn } from "react-hook-form";
 
-interface Props {
-  buyerName: UseFormRegisterReturn<"buyerName">;
-  buyerPhone: UseFormRegisterReturn<"buyerPhone">;
-}
-const BuyerInfoForm = ({ buyerName, buyerPhone }: Props) => {
+const BuyerInfoForm = () => {
+  const { register } = useFormContext();
+
   return (
     <section className="bg-white px-4 pt-7 pb-8">
       <div className="pb-5">
@@ -15,12 +13,12 @@ const BuyerInfoForm = ({ buyerName, buyerPhone }: Props) => {
         <TextField
           label="이름"
           placeholder="이름을 입력해주세요."
-          {...buyerName}
+          {...register("buyerName")}
         />
         <TextField
           label="휴대폰 번호"
           placeholder="휴대폰 번호를 입력해주세요."
-          {...buyerPhone}
+          {...register("buyerPhone")}
         />
       </div>
     </section>

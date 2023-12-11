@@ -2,14 +2,16 @@ import { useEffect, useRef } from "react";
 import { cn } from "../utils";
 import { FaX } from "react-icons/fa6";
 import TextField from "./common/TextField";
+import { useFormContext } from "react-hook-form";
 
 interface Props {
   isOpen: boolean;
   onClose: () => void;
-  setAddress: (value: string) => void;
 }
 
-const ShippingAddressSearchModal = ({ isOpen, onClose, setAddress }: Props) => {
+const ShippingAddressSearchModal = ({ isOpen, onClose }: Props) => {
+  const { setValue } = useFormContext();
+
   const addressRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -22,6 +24,10 @@ const ShippingAddressSearchModal = ({ isOpen, onClose, setAddress }: Props) => {
   const handleCloseModal = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
     onClose();
+  };
+
+  const setAddress = (value: string) => {
+    setValue("address", value);
   };
 
   const handleSearchComplete = () => {

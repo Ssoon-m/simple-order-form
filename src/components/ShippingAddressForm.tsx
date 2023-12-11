@@ -2,23 +2,11 @@ import { useState } from "react";
 import ShippingAddressSearchModal from "./ShippingAddressSearchModal";
 import TextField from "./common/TextField";
 import { FaSearch } from "react-icons/fa";
-import { UseFormRegisterReturn } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 
-interface Props {
-  receiverName: UseFormRegisterReturn<"receiverName">;
-  receiverPhone: UseFormRegisterReturn<"receiverPhone">;
-  address: UseFormRegisterReturn<"address">;
-  addressDetail: UseFormRegisterReturn<"addressDetail">;
-  setAddress: (value: string) => void;
-}
+const ShippingAddressForm = () => {
+  const { register } = useFormContext();
 
-const ShippingAddressForm = ({
-  receiverName,
-  receiverPhone,
-  address,
-  addressDetail,
-  setAddress,
-}: Props) => {
   const [isOpenShippingModal, setIsOpenShippingModal] = useState(false);
   const handleOpenShippingModal = () => {
     setIsOpenShippingModal(true);
@@ -37,26 +25,26 @@ const ShippingAddressForm = ({
           <TextField
             label="받는사람"
             placeholder="이름을 입력해주세요."
-            {...receiverName}
+            {...register("receiverName")}
           />
           <TextField
             label="받는사람 연락처"
             placeholder="받는사람 연락처를 입력해주세요."
-            {...receiverPhone}
+            {...register("receiverPhone")}
           />
           <div>
             <div className="text-sm font-bold pb-1">배송지 입력</div>
             <div className="flex flex-col gap-2">
               <TextField
                 icon={<FaSearch />}
-                {...address}
+                {...register("address")}
                 readOnly
                 placeholder="배송지를 검색해주세요."
                 onClick={handleOpenShippingModal}
               />
               <TextField
                 placeholder="상세주소를 입력해주세요."
-                {...addressDetail}
+                {...register("addressDetail")}
               />
             </div>
           </div>
@@ -65,7 +53,6 @@ const ShippingAddressForm = ({
       <ShippingAddressSearchModal
         isOpen={isOpenShippingModal}
         onClose={handleCloseShippingModal}
-        setAddress={setAddress}
       />
     </>
   );

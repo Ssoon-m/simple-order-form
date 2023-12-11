@@ -6,7 +6,12 @@ import ShippingAddressForm from "./components/ShippingAddressForm";
 
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { SubmitErrorHandler, SubmitHandler, useForm } from "react-hook-form";
+import {
+  FormProvider,
+  SubmitErrorHandler,
+  SubmitHandler,
+  useForm,
+} from "react-hook-form";
 import { PAYMENT_METHOD } from "./constants/payment";
 
 const OrderFormSchema = z.object({
@@ -38,22 +43,9 @@ const OrderFormSchema = z.object({
 type OrderFormSchemaType = z.infer<typeof OrderFormSchema>;
 
 function App() {
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    formState: { errors },
-  } = useForm<OrderFormSchemaType>({
+  const methods = useForm<OrderFormSchemaType>({
     resolver: zodResolver(OrderFormSchema),
   });
-
-  const setAddress = (value: string) => {
-    setValue("address", value);
-  };
-
-  const setPaymentMethod = (value: string) => {
-    setValue("paymentMethod", value);
-  };
 
   const checkKeyDown = (e: React.KeyboardEvent<HTMLFormElement>) => {
     if (e.key === "Enter") e.preventDefault();
@@ -79,38 +71,28 @@ function App() {
           <header className="z-50 sticky top-0 bg-white w-full border-b border-b-gray-200 py-3">
             <h1 className="text-xl font-bold text-center">결제하기</h1>
           </header>
-          <form
-            onSubmit={handleSubmit(onSubmitForm, onInvalid)}
-            onKeyDown={(e) => checkKeyDown(e)}
-          >
-            <div className="flex flex-col gap-3">
-              <OrderItemsInfo />
-              <BuyerInfoForm
-                buyerName={register("buyerName")}
-                buyerPhone={register("buyerPhone")}
-              />
-              <ShippingAddressForm
-                receiverName={register("receiverName")}
-                receiverPhone={register("receiverPhone")}
-                address={register("address")}
-                addressDetail={register("addressDetail")}
-                setAddress={setAddress}
-              />
-              <PaymentPriceInfo />
-              <PaymentMethod
-                paymentMethodtype={register("paymentMethod")}
-                setPaymentMethod={setPaymentMethod}
-              />
-            </div>
-            <footer className="p-5 bg-white border border-t border-gray-200">
-              <button
-                className="w-full bg-blue-500 text-white rounded-lg py-3 px-6 hover:bg-blue-400"
-                type="submit"
-              >
-                18,000원 결제하기
-              </button>
-            </footer>
-          </form>
+          <FormProvider {...methods}>
+            <form
+              onSubmit={methods.handleSubmit(onSubmitForm, onInvalid)}
+              onKeyDown={(e) => checkKeyDown(e)}
+            >
+              <div className="flex flex-col gap-3">
+                <OrderItemsInfo />
+                <BuyerInfoForm />
+                <ShippingAddressForm />
+                <PaymentPriceInfo />
+                <PaymentMethod />
+              </div>
+              <footer className="p-5 bg-white border border-t border-gray-200">
+                <button
+                  className="w-full bg-blue-500 text-white rounded-lg py-3 px-6 hover:bg-blue-400"
+                  type="submit"
+                >
+                  18,000원 결제하기
+                </button>
+              </footer>
+            </form>
+          </FormProvider>
         </div>
       </div>
     </div>
