@@ -38,12 +38,7 @@ const OrderFormSchema = z.object({
 type OrderFormSchemaType = z.infer<typeof OrderFormSchema>;
 
 function App() {
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    formState: { errors },
-  } = useForm<OrderFormSchemaType>({
+  const { register, handleSubmit, setValue } = useForm<OrderFormSchemaType>({
     resolver: zodResolver(OrderFormSchema),
   });
 
