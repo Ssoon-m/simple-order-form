@@ -1,12 +1,9 @@
-import { UseFormRegisterReturn } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 import { PAYMENT_METHOD } from "../constants/payment";
+import { OrderFormSchemaType } from "./OrderForm";
 
-interface Props {
-  setPaymentMethod: (value: string) => void;
-  paymentMethodtype: UseFormRegisterReturn<"paymentMethod">;
-}
-
-const PaymentMethod = ({ setPaymentMethod, paymentMethodtype }: Props) => {
+const PaymentMethod = () => {
+  const { register, setValue } = useFormContext<OrderFormSchemaType>();
   return (
     <section className="bg-white px-4 pt-7 pb-8">
       <div className="pb-5">
@@ -16,10 +13,10 @@ const PaymentMethod = ({ setPaymentMethod, paymentMethodtype }: Props) => {
         {PAYMENT_METHOD.map((method) => (
           <li className="w-full" key={method.id}>
             <input
-              {...paymentMethodtype}
+              {...register("paymentMethod")}
               type="radio"
               id={method.id}
-              onChange={(e) => setPaymentMethod(e.target.value)}
+              onChange={(e) => setValue("paymentMethod", e.target.value)}
               value={method.value}
               className="sr-only peer"
               name={method.name}
